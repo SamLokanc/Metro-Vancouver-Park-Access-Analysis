@@ -52,14 +52,12 @@ metro_van_admin_gdf = (metro_van_admin_gdf[metro_van_admin_gdf['municipality']
                            'City of Vancouver', 
                            'City of Burnaby',
                            'City of Surrey',
-                           'Bowen Island Municipality',
                            'City of Langley',
                            'Township of Langley',
                            'City of Maple Ridge',
                            'District of North Vancouver',
                            'City of Port Coquitlam',
                            'City of Port Moody',
-                           'District of West Vancouver'
                            ])]
 )
 

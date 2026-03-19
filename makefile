@@ -13,7 +13,6 @@ all: download filter-buffer process-census choropleth
 
 download:
 	python scripts/01-data_download.py
-	curl https://mapping.westvancouver.ca/PRODUCTS/OPEN/PARKS/PARKS_SHP.ZIP
 
 filter-buffer:
 	python scripts/02-filter_buffer_parks.py
