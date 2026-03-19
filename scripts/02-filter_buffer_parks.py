@@ -19,7 +19,6 @@ maple_ridge_parks_path = os.path.join(in_path, 'maple_ridge_parks.zip')
 north_van_district_parks_path = os.path.join(in_path, 'north_van_district_parks.zip')
 port_coquitlam_parks_path = os.path.join(in_path, 'port_coquitlam_parks.zip')
 port_moody_parks_path = os.path.join(in_path, 'port_moody_parks.zip')
-west_van_parks_path = os.path.join(in_path, 'west_van_parks.zip')
 metro_van_admin_path = os.path.join(in_path, 'administrative_boundaries.zip')
 
 vancity_parks_gdf = load_boundaries(vancity_parks_path, 'PARK_NAME')
@@ -34,7 +33,6 @@ maple_ridge_parks_gdf = load_boundaries(maple_ridge_parks_path, 'ParkName')
 north_van_district_parks_gdf = load_boundaries(north_van_district_parks_path, 'PARK_NAME')
 port_coquitlam_parks_gdf = load_boundaries(port_coquitlam_parks_path, 'Park_Name')
 port_moody_parks_gdf = load_boundaries(port_moody_parks_path, 'park_name')
-west_van_parks_gdf = load_boundaries(west_van_parks_path, 'PARK_NAME')
 
 all_parks_gdf = pd.concat([vancity_parks_gdf,
                            metro_van_parks_gdf, 
@@ -47,8 +45,7 @@ all_parks_gdf = pd.concat([vancity_parks_gdf,
                            maple_ridge_parks_gdf,
                            north_van_district_parks_gdf,
                            port_coquitlam_parks_gdf,
-                           port_moody_parks_gdf,
-                           west_van_parks_gdf], ignore_index=True)
+                           port_moody_parks_gdf], ignore_index=True)
 
 metro_van_admin_gdf = load_boundaries(metro_van_admin_path, 'FullName', 'municipality')
 
