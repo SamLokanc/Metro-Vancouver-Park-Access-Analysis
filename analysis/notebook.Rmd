@@ -1,0 +1,103 @@
+---
+title: "notebook"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(lme4)
+library(lmerTest)
+library(ggcorrplot)
+```
+
+```{r}
+near_parks <- read_csv("../data/processed/near_parks.csv") |> 
+  select(-1)
+near_parks
+```
+```{r}
+municipality_avg <- near_parks |> 
+  group_by(municipality) |> 
+  summarise("mean_access_rate" = mean(access_rate),
+            "total_population" = sum(total_population)) |>
+  mutate("pop_weighted_mean_access_rate" = mean_access_rate * total_population) |> 
+  arrange(desc(mean_access_rate))
+municipality_avg
+```
+```{r, fig.width=10, fig.height=6}
+# Might want to try this in python instead to add hover interactivity, looks good for now tho
+municipality_avg_plot <- municipality_avg |> 
+  ggplot(aes(x = mean_access_rate, 
+             y = reorder(municipality, mean_access_rate))) +
+  geom_bar(stat = "identity", color = "#567F69", fill = "#567F69") +
+  labs(x = "Mean Access Rate",
+       y = "Municipality",
+       title = "Mean Park Access Rate",
+       subtitle = "Across Metro Vancouver Municipalities") +
+  theme_minimal() +
+  theme(text = element_text(family = "Helvetica"),
+        plot.title = element_text(face = "bold", size = 13),
+        axis.text = element_text(size = 10),
+        axis.title = element_text(face = "bold", size = 12),
+        plot.subtitle = element_text(face = "italic", size = 12))
+
+municipality_avg_plot
+```
+```{r, fig.width=10, fig.height=6}
+# not sure if this figure is necessary but I think it provides a good intuition for the number of individuals with access to a park per municipality
+municipality_avg_weighted_plot <- municipality_avg |> 
+  ggplot(aes(x = pop_weighted_mean_access_rate, 
+             y = reorder(municipality, pop_weighted_mean_access_rate))) +
+  geom_bar(stat = "identity", color = "#567F69", fill = "#567F69") +
+  labs(x = "Population Weighted Mean Access Rate",
+       y = "Municipality",
+       title = "Population Weighted Mean Park Access Rate",
+       subtitle = "Across Metro Vancouver Municipalities") +
+  theme_minimal() +
+  theme(text = element_text(family = "Helvetica"),
+        plot.title = element_text(face = "bold", size = 13),
+        axis.text = element_text(size = 10),
+        axis.title = element_text(face = "bold", size = 12),
+        plot.subtitle = element_text(face = "italic", size = 12))
+
+municipality_avg_weighted_plot
+```
+
+```{r, fig.width=7, fig.height=7}
+cor_mat <- cor(near_parks |> select(-c(municipality, DGUID)),
+         use = "pairwise.complete.obs")
+
+ggcorrplot(cor_mat,
+           hc.order = TRUE,
+           type = "full",
+           lab = FALSE,
+           colors = c("#762A83", "white", "#1B7837")) + 
+  labs(title = "Correlation Between Features") + 
+  theme_minimal() +
+  theme(text = element_text(family = "Helvetica"),
+        plot.title = element_text(face = "bold", size = 13),
+        axis.text = element_text(size = 10),
+        axis.title = element_text(face = "bold", size = 12),
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+
+```{r}
+# mixed_model <- lmer(
+#   access_rate ~ `total population` +
+#   `population density` +
+#   `children pct` +
+#   `senior pct` +
+#   `lico pct` +
+#   `renter pct` +
+#   `visible minority pct` +
+#   (1 | municipality),
+#   data = near_parks
+# )
+```
+
+```{r}
+# summary(mixed_model)
+```
+
