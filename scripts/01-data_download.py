@@ -15,8 +15,6 @@ download_files = {
     'surrey_parks.geojson': ("https://services5.arcgis.com/YRpe0VKTJytZSSIB/arcgis/rest/services" 
                              "/Park%20Locations/FeatureServer/replicafilescache/Park%20Locations" 
                              "_2731771217122842592.geojson"),
-    'bowen_island_parks.zip': ("https://islandstrust.bc.ca/DATA/BM/Shapefile/BM_PROTECTED_AREAS." 
-                               "ZIP"),
     'langley_city_parks.zip': ("https://hub.arcgis.com/api/v3/datasets/c4c1e34f0552400f853e7424b" 
                                "29f32a6_187/downloads/data?format=shp&spatialRefId=26910&where=1" 
                                "%3D1"),
