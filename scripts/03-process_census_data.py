@@ -193,12 +193,12 @@ metro_van_census_da_gdf["access_rate"] = (
 )
 
 (metro_van_census_da_gdf
- .drop(columns=['geometry', 'centroid'])
+ .drop(columns=['geometry', 'centroid', 'index_right'])
  .to_csv(os.path.join(processed_path, 'near_parks.csv'))
 )
 
 (metro_van_census_da_gdf
- .drop(columns=['centroid'], errors='ignore')
+ .drop(columns=['centroid', 'index_right'], errors='ignore')
  .to_file(
     os.path.join(processed_path, 'near_parks.gpkg'), driver="GPKG")
 )
